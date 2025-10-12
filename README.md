@@ -20,7 +20,7 @@ ssh-keygen -t ed25519
 ```
 #### Install libvirt (KVM Virtualization):
 ```
-yum -y install libvirt libvirt-daemon-driver-qemu qemu-kvm
+dnf -y install libvirt libvirt-daemon-driver-qemu qemu-kvm
 usermod -aG qemu,libvirt $(id -un)
 newgrp libvirt
 systemctl enable --now libvirtd
@@ -54,16 +54,10 @@ chronyc tracking
 ```
 #### Install [kcli](https://kcli.readthedocs.io/en/latest/) - Hybrid Infra Management Toolchain:
 ```
-ssh-keygen  # Ignore if already created root SSH key pair
+ssh-keygen -t ed25519  # Ignore if already created root SSH key pair
 dnf -y copr enable karmab/kcli
 dnf -y install kcli
 ```
-#### Check if reboot requires or not
-```
-needs-restarting -r
-```
-- **NOTE: # More information: https://access.redhat.com/solutions/27943**
-
 #### Install & Eanble ksushy service o query vms with redfish APIs
 ```
 kcli create sushy-service
@@ -73,6 +67,12 @@ systemctl status ksushy
 ```
 kcli create pool -p /var/lib/libvirt/images default 
 ```
+#### Check if reboot requires or not
+```
+needs-restarting -r
+```
+- **NOTE: # More information: https://access.redhat.com/solutions/27943**
+
 #### Create Bastion Host for Red Hat OpenStack & Red Hat OpenShift
 ```
 kcli create plan -f infra-rhoso-cluster.redhat.lab.kcli rhoso-cluster -A
