@@ -16,7 +16,7 @@ subscription-manager register --username _RHN_USERNAME_
 ```
 dnf update -y
 dnf install tmux mc podman-docker bash-completion vim jq tar git yum-utils  -y
-ssh-keygen
+ssh-keygen -t ed25519
 ```
 #### Install libvirt (KVM Virtualization):
 ```
